@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "images": "^3.2.3"
+    "express": "^4.17.1",
+    "images": "^3.2.3",
+    "ipfs": "^0.55.4"
   }
 }
