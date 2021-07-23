@@ -8,10 +8,10 @@ const port = 3000;
 let node = null;
 
 app.get('/', async (req, res) => {
-  if (!node) node = await IPFS.create({ repo: 'ok' + Math.random() });
+  if (!node) node = await IPFS.create({ repo: 'ipfs' });
   else if (typeof node.then === 'function') await node;
 
-  blender.genRandomImage();
+  await blender.genRandomImage();
 
   const imgdata = fs.readFileSync('character.png');
   const image_response = await node.add({
