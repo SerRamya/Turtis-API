@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "images": "^3.2.3",
-    "ipfs": "^0.55.4"
+    "ipfs": "^0.55.4",
+    "node-fetch": "npm:@achingbrain/node-fetch@^2.6.7"
   }
 }
