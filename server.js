@@ -1,6 +1,6 @@
 const fs = require('fs');
 const express = require('express');
-const IPFS = require('ipfs');
+const IPFS = require('ipfs-core');
 const blender = require('./image-blend-randomize');
 
 const app = express();

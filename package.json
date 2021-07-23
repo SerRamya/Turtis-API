@@ -15,7 +15,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "images": "^3.2.3",
-    "ipfs": "^0.55.4",
-    "node-fetch": "^2.6.1"
+    "ipfs-core": "^0.8.0"
   }
 }
