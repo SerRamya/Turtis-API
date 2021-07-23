@@ -8,7 +8,9 @@ const port = 3000;
 let node = null;
 
 app.get('/', async (req, res) => {
-  if (!node) node = await IPFS.create();
+  if (!node) node = await IPFS.create({ repo: 'ok' + Math.random() });
+  else if (typeof node.then === 'function') await node;
+
   blender.genRandomImage();
 
   const imgdata = fs.readFileSync('character.png');
@@ -18,7 +20,9 @@ app.get('/', async (req, res) => {
   const char_json = await JSON.stringify({
     name: 'Super Turtle',
     image: `https://ipfs.io/ipfs/${image_response.path}`,
-    attributes: [{ trait_type: 'speed', value: 1 }],
+    attributes: [
+      { trait_type: 'speed', value: Math.floor(Math.random() * 10) },
+    ],
   });
   const json_response = await node.add({
     content: char_json,
