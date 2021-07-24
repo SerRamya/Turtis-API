@@ -4,7 +4,7 @@ const IPFS = require('ipfs-core');
 const blender = require('./image-blend-randomize');
 
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 let node = null;
 
 app.get('/', async (req, res) => {
