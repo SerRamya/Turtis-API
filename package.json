@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cids": "^1.1.7",
     "express": "^4.17.1",
     "images": "^3.2.3",
     "ipfs-core": "^0.8.0",

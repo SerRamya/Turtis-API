@@ -2,9 +2,10 @@ const fs = require('fs');
 const express = require('express');
 const IPFS = require('ipfs-core');
 const blender = require('./image-blend-randomize');
+const CID = require('cids');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 let node = null;
 
 app.get('/', async (req, res) => {
@@ -27,8 +28,9 @@ app.get('/', async (req, res) => {
   const json_response = await node.add({
     content: char_json,
   });
+  const cid = new CID(json_response.cid).toV1().toString('base16upper');
   res.json({
-    IPFS_PATH: json_response.path.slice(2),
+    IPFS_PATH: Number('0x' + cid.slice(9)),
   });
 });
 
