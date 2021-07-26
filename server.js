@@ -2,11 +2,13 @@ const fs = require('fs');
 const express = require('express');
 const IPFS = require('ipfs-core');
 const blender = require('./image-blend-randomize');
-const CID = require('cids');
 
 const app = express();
 const port = process.env.PORT || 4000;
 let node = null;
+
+let sameCall = false;
+let sameCallStr = "";
 
 app.get('/', async (req, res) => {
   if (!node) node = await IPFS.create({ repo: 'ipfs' });
@@ -28,9 +30,20 @@ app.get('/', async (req, res) => {
   const json_response = await node.add({
     content: char_json,
   });
-  const cid = new CID(json_response.cid).toV1().toString('base16upper');
+  var str = json_response.path;
+  sameCallStr = str.slice(26);
+  console.log("same call str is " + sameCallStr);
+  str = str.slice(0,26);
+  sameCall = true;
+  console.log("str is " + str);
   res.json({
-    IPFS_PATH: Number('0x' + cid.slice(9)),
+    IPFS_PATH: str
+  });
+});
+
+app.get('/second', async (req, res) => {
+  res.json({
+    IPFS_PATH: sameCallStr
   });
 });
 
