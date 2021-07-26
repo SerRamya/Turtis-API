@@ -27,7 +27,9 @@ app.get('/', async (req, res) => {
   const json_response = await node.add({
     content: char_json,
   });
-  res.send(`https://ipfs.io/ipfs/${json_response.path}`);
+  res.json({
+    IPFS_PATH: json_response.path.slice(2),
+  });
 });
 
 app.listen(port, () => {
