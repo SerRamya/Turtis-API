@@ -1,17 +1,19 @@
 var images = require('images');
 
 var folder = 'components';
-var components = ['head', 'shell', 'legs'];
+var components = ['head', 'legs', 'shell', 'tail'];
 var file_extension = '.png';
 var total_components = components.length;
 
-var num_images_per_component = 3;
+var num_images_per_component = [15, 15, 19, 12];
+
+genRandomImage();
 
 async function genRandomImage() {
   var randomNumbers = new Array();
 
   for (var i = 0; i < total_components; i++) {
-    var num = Math.floor(Math.random() * num_images_per_component + 1);
+    var num = Math.floor(Math.random() * num_images_per_component[i] + 1);
     randomNumbers.push(num.toString());
   }
 
