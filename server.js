@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
   var characterName = "Turtle #" + characterId;
   console.log("Turtle name: " + characterName);
 
-  var speed = parseInt(req.query.speed);
+  var speed = parseInt(req.query.score);
   speed += parseInt(Math.random() * 51);
   console.log("Speed: " + speed);
 
