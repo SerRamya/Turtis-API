@@ -7,7 +7,6 @@ const app = express();
 const port = process.env.PORT || 4000;
 let node = null;
 
-let sameCall = false;
 let sameCallStr = "";
 
 app.get('/', async (req, res) => {
@@ -16,15 +15,23 @@ app.get('/', async (req, res) => {
 
   await blender.genRandomImage();
 
+  var characterId = req.query.characterId;
+  var characterName = "Turtle #" + characterId;
+  console.log("Turtle name: " + characterName);
+
+  var speed = parseInt(req.query.speed);
+  speed += parseInt(Math.random() * 51);
+  console.log("Speed: " + speed);
+
   const imgdata = fs.readFileSync('character.png');
   const image_response = await node.add({
     content: imgdata,
   });
   const char_json = await JSON.stringify({
-    name: 'Super Turtle',
+    name: characterName,
     image: `https://ipfs.io/ipfs/${image_response.path}`,
     attributes: [
-      { trait_type: 'speed', value: Math.floor(Math.random() * 10) },
+      { trait_type: 'speed', value: speed },
     ],
   });
   const json_response = await node.add({
@@ -32,10 +39,9 @@ app.get('/', async (req, res) => {
   });
   var str = json_response.path;
   sameCallStr = str.slice(26);
-  console.log("same call str is " + sameCallStr);
-  str = str.slice(0,26);
-  sameCall = true;
-  console.log("str is " + str);
+  str = str.slice(0, 26);
+  console.log("Part 1 Hash: " + str);
+  console.log("Part 2 Hash: " + sameCallStr);
   res.json({
     IPFS_PATH: str
   });
