@@ -1,19 +1,20 @@
-const fs = require('fs');
-const express = require('express');
-const IPFS = require('ipfs-core');
-const blender = require('./image-blend-randomize');
+import fs from 'fs';
+import express from 'express';
+import { genRandomImage } from './image-blend-randomize.js';
+import { NFTStorage, File } from "nft.storage";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
-let node = null;
+
+const apiKey = process.env.NFT_STORAGE_API_KEY;
+const client = new NFTStorage({ token: apiKey });
 
 let sameCallStr = "";
 
 app.get('/', async (req, res) => {
-  if (!node) node = await IPFS.create({ repo: 'ipfs' });
-  else if (typeof node.then === 'function') await node;
-
-  await blender.genRandomImage();
+  await genRandomImage();
 
   var characterId = req.query.characterId;
   var characterName = "Turtle #" + characterId;
@@ -24,22 +25,18 @@ app.get('/', async (req, res) => {
   console.log("Speed: " + speed);
 
   const imgdata = fs.readFileSync('character.png');
-  const image_response = await node.add({
-    content: imgdata,
+  const metadata = await client.store({
+      name: characterName,
+      description: 'An amazing turtle that can dodge through platforms',
+      image: new File([imgdata], 'character.png', { type: 'image/png' }),
+      attributes: [
+        { trait_type: 'speed', value: speed },
+      ],
   });
-  const char_json = await JSON.stringify({
-    name: characterName,
-    image: `https://ipfs.io/ipfs/${image_response.path}`,
-    attributes: [
-      { trait_type: 'speed', value: speed },
-    ],
-  });
-  const json_response = await node.add({
-    content: char_json,
-  });
-  var str = json_response.path;
-  sameCallStr = str.slice(26);
-  str = str.slice(0, 26);
+
+  var str = metadata.ipnft;
+  sameCallStr = str.slice(31);
+  str = str.slice(0, 31);
   console.log("Part 1 Hash: " + str);
   console.log("Part 2 Hash: " + sameCallStr);
   res.json({
