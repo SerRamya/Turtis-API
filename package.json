@@ -1,6 +1,7 @@
 {
   "name": "image-blend",
   "version": "1.0.0",
+  "type": "module",
   "engines": {
     "node": "14.16.1"
   },
@@ -14,9 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "cids": "^1.1.7",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "images": "^3.2.3",
     "ipfs-core": "^0.8.0",
+    "nft.storage": "^3.0.1",
     "node-fetch": "^2.6.1"
   }
 }

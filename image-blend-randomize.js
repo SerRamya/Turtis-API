@@ -1,4 +1,4 @@
-var images = require('images');
+import images from 'images';
 
 var folder = 'components';
 var components = ['head', 'legs', 'shell', 'tail'];
@@ -9,7 +9,7 @@ var num_images_per_component = [15, 15, 19, 12];
 
 genRandomImage();
 
-async function genRandomImage() {
+export async function genRandomImage() {
   var randomNumbers = new Array();
 
   for (var i = 0; i < total_components; i++) {
@@ -31,7 +31,3 @@ async function genRandomImage() {
 
   await blendedImage.save('character.png');
 }
-
-module.exports = {
-  genRandomImage,
-};
