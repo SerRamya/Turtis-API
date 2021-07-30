@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 4000;
 
-const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDk2NGY5QzI1NWFENzY0NTZEQTM0NmI0NUUwOTFCNzNGNzMwNEI4ZTAiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYyNzYzMjkwNzY0NiwibmFtZSI6InR1cnRpc19uZnQifQ.2seJ15GsY20_WuQ75Ug-9176cSWQRAGbTKquel5ox30';
+const apiKey = process.env.NFT_STORAGE_API_KEY;
 const client = new NFTStorage({ token: apiKey });
 
 let sameCallStr = "";
