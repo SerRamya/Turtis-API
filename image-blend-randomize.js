@@ -5,7 +5,7 @@ var components = ['head', 'legs', 'shell', 'tail'];
 var file_extension = '.png';
 var total_components = components.length;
 
-var num_images_per_component = [15, 15, 19, 12];
+var num_images_per_component = [20, 20, 20, 20];
 
 genRandomImage();
 
